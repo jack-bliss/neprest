@@ -5,10 +5,10 @@ export class NepGetRequest<T> {
     Object.assign(this, input);
   }
   
-  select: string[];
+  select: (keyof T)[] | '*';
   where?: string;
   orderBy?: string;
-  prep: (a: any) => T;
+  prep?: (a: T[]) => any;
 }
 
 export class NepPostRequest<T> {
@@ -18,8 +18,7 @@ export class NepPostRequest<T> {
   }
   
   insert: T;
-  returning: string;
-  prep: (a: any) => T;
+  prep?: (a: T) => any;
 }
 
 export class NepPutRequest<T> {
@@ -28,9 +27,9 @@ export class NepPutRequest<T> {
     Object.assign(this, input);
   }
   
-  set: string[];
+  set: T;
   where: string;
-  prep: (a: any) => T;
+  prep?: (a: T) => any;
 }
 
 export class NepDeleteRequest<T> {
@@ -40,7 +39,7 @@ export class NepDeleteRequest<T> {
   }
   
   where: string;
-  prep: (a: any) => T;
+  prep?: (a: any) => any;
   
 }
 
@@ -51,5 +50,5 @@ export class NepCustomRequest<T> {
   }
   
   query: string;
-  prep: (a: any) => T;
+  prep?: (a: any) => any;
 }

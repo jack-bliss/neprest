@@ -26,9 +26,12 @@ export function NepModule(config: NepModuleConfig) {
             controller: (req, res, next) => {
               let request;
               let query;
-              if (mtd.method === 'get') {
+              if (mtd.custom) {
+                request = mtd.func(req.params, req.query, req.body);
+                query = request.query;
+              } else if (mtd.method === 'get') {
                 request = mtd.func(req.params, req.query);
-                query = 'SELECT ' + request.select.join(', ') + ' FROM ' + handler.table;
+                query = 'SELECT ' + (request.select === '*' ? '*' : request.select.join(', ')) + ' FROM ' + handler.table;
                 if (request.where && request.where.length) {
                   query += ' WHERE ' + request.where;
                 }
@@ -55,15 +58,10 @@ export function NepModule(config: NepModuleConfig) {
                         return val;
                       }
                     }).join(', ')
-                    + ')';
-                if (request.returning) {
-                  query += ' RETURNING ' + request.returning;
-                }
+                    + ') RETURNING *';
               } else if (mtd.method === 'delete') {
                 request = mtd.func(req.params);
                 query = 'DELETE FROM ' + handler.table + ' WHERE ' + request.where;
-              } else if (mtd.method === 'put') {
-                request = mtd.func(req.params, req.body);
               }
               console.log(query);
               config.pool.query(query).then(pool_response => {
@@ -84,7 +82,7 @@ export function NepModule(config: NepModuleConfig) {
     for (const middle in ctor.prototype) {
       if (ctor.prototype.hasOwnProperty(middle)) {
         config.app.use(config.path ? config.path : '', ctor.prototype[middle]);
-      }
+      }z
     }
     
     const ExpressRoutes = NepRouterService(routes);

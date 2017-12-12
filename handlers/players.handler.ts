@@ -26,7 +26,7 @@ export class PlayersHandler {
   })
   getPlayers(params, queryParams): NepGetRequest<Player[]> {
     return new NepGetRequest<Player[]>({
-      select: ['*'],
+      select: '*',
       where: queryParams.tag ? 'tag LIKE ' + queryParams.tag : null,
     });
   }

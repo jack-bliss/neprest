@@ -3,6 +3,7 @@ export interface NepMethodConfig {
   path?: string;
   queryParams?: string[];
   params?: string[];
+  custom?: boolean;
 }
 
 export function NepMethod(config: NepMethodConfig) {
