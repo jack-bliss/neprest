@@ -1,3 +1,6 @@
 process.txt
 /node_modules
 /.idea
+/handlers
+server.ts
+.idea/workspace.xml

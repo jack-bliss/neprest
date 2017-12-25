@@ -1,4 +1,4 @@
-export interface NepMethodConfig {
+export interface NepEndpointConfig {
   method: string;
   path?: string;
   queryParams?: string[];
@@ -6,11 +6,11 @@ export interface NepMethodConfig {
   custom?: boolean;
 }
 
-export function NepMethod(config: NepMethodConfig) {
-  return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+export function NepEndpoint(config: NepEndpointConfig) {
+  return (target: any, propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
     const originalMethod = descriptor.value;
     descriptor.value = Object.assign({}, config, {
-      _isNepMethod: true,
+      _isNepEndpoint: true,
       func: originalMethod,
     });
     return descriptor;

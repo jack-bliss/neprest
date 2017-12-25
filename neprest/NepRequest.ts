@@ -5,7 +5,7 @@ export class NepGetRequest<T> {
     Object.assign(this, input);
   }
   
-  select: (keyof T)[] | '*';
+  select: string; // (keyof T)[] | '*';
   where?: string;
   orderBy?: string;
   prep?: (a: T[]) => any;
