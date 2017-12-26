@@ -1,6 +1,4 @@
 import { NepRouterService } from './NepRouterService';
-import * as url from 'url';
-import { Pool } from 'pg';
 
 export interface NepModuleConfig {
   app: any;
@@ -10,24 +8,6 @@ export interface NepModuleConfig {
 }
 
 export function NepModule(config: NepModuleConfig) {
-  
-  const processPool = (url: string): any => {
-    if (typeof url !== 'string') {
-      return url;
-    }
-    
-    const pg_params = url.parse(url);
-    const pg_auth = pg_params.auth.split(":");
-  
-    return Pool({
-      host: pg_params.hostname,
-      port: pg_params.port,
-      user: pg_auth[0],
-      database: pg_params.pathname.split('/')[1],
-      password: pg_auth[1],
-      ssl: true
-    });
-  };
   
   return (ctor: any) => {
     const routes = {};
@@ -93,8 +73,6 @@ export function NepModule(config: NepModuleConfig) {
                 } else {
                   pool = config.pool;
                 }
-                
-                pool = processPool(pool);
                 
                 pool.query(query).then(pool_response => {
                   if (request.prep) {
