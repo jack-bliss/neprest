@@ -1,6 +1,6 @@
 {
   "name": "neprest",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "a framework for building REST apis using Node, Express and Postgres",
   "main": "bundle/server.js",
   "scripts": {

@@ -35665,7 +35665,7 @@ function parse (header) {
 /* 110 */
 /***/ (function(module, exports) {
 
-module.exports = ./../../../../../../../usr/local/lib/node_modules/webpack/buildin/module.js;
+module.exports = './../../../../../../../usr/local/lib/node_modules/webpack/buildin/module.js';
 
 /***/ }),
 /* 111 */
